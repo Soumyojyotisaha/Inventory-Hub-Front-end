@@ -1,7 +1,8 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-function SideNavbar({ handleLogout }) {
+
+function SupplierSideNavbar({ handleLogout }) {
   return (
     <div
       className="sidebar"
@@ -11,62 +12,81 @@ function SideNavbar({ handleLogout }) {
         backgroundColor: "rgb(0, 123, 255)",
         color: "white",
         position: "fixed",
-        padding: "30px",
+        padding: "40px",
         display: "flex",
         flexDirection: "column",
         alignItems: "flex-start",
-        justifyContent: "space-between",
       }}
     >
-      <div>
-        <h2 className="fw-bold">
-          <Link to="/customer-dashboard" className="text-white text-decoration-none">
-            📊Customer Dashboard
+      <h2 className="fw-bold">
+        <Link to="/supplier-dashboard" className="text-white text-decoration-none">
+          📊 Supplier Dashboard
+        </Link>
+      </h2>
+      <ul className="list-unstyled">
+        <li className="mb-3">
+          <Link to="/add-product" className="text-white text-decoration-none fw-bold">
+            ➕ Add Product
           </Link>
-        </h2>
-        <ul className="list-unstyled">
-          <li className="mb-3">
-            <Link to="/update-customer" className="text-white text-decoration-none fw-bold">
-              ✏️ Update Profile
-            </Link>
-          </li>
-          <li className="mb-3">
-            <Link to="/delete-profile" className="text-white text-decoration-none fw-bold">
-              🗑️ Delete Profile
-            </Link>
-          </li>
-          <li className="mb-3">
-            <Link to="/place-order" className="text-white text-decoration-none fw-bold">
-              🛒 Place Order
-            </Link>
-          </li>
-          <li className="mb-3">
-            <Link to="/view-orders" className="text-white text-decoration-none fw-bold">
-              📦 View Orders
-            </Link>
-          </li>
-          <li className="mb-3">
-            <Link to="/cancel-order" className="text-white text-decoration-none fw-bold">
-              ❌ Cancel Order
-            </Link>
-          </li>
-          <li className="mb-3">
-            <Link to="/forgot-password" className="text-white text-decoration-none fw-bold">
-              🔑 Forgot Password
-            </Link>
-          </li>
-          <li>
-            <button onClick={handleLogout} className="btn btn-link text-white text-decoration-none fw-bold p-0" style={{ textAlign: "left" }}>
-              🚪 Logout
-            </button>
-          </li>
-        </ul>
-      </div>
-      <div className="text-center mt-4" style={{ color: "white", fontSize: "0.9rem" }}>
-        Made By Soumyojyoti Saha
-      </div>
+        </li>
+        <li className="mb-3">
+          <Link to="/update-product" className="text-white text-decoration-none fw-bold">
+            ✏️ Update Product
+          </Link>
+        </li>
+        <li className="mb-3">
+          <Link to="/delete-product-from-stock" className="text-white text-decoration-none fw-bold">
+            🗑️ Delete Product
+          </Link>
+        </li>
+        <li className="mb-3">
+          <Link to="/update-stock" className="text-white text-decoration-none fw-bold">
+            📈 Update Stock
+          </Link>
+        </li>
+        <li className="mb-3">
+          <Link to="/update-order-status" className="text-white text-decoration-none fw-bold">
+            📦 Update Order Status
+          </Link>
+        </li>
+        <li className="mb-3">
+          <Link to="/get-all-order-details" className="text-white text-decoration-none fw-bold">
+            📋 Get All Order Details
+          </Link>
+        </li>
+        <li className="mb-3">
+          <Link to="/view-customer-base" className="text-white text-decoration-none fw-bold">
+            👥 View Customer Base
+          </Link>
+        </li>
+        <li className="mb-3">
+          <Link to="/toggle-2fa" className="text-white text-decoration-none fw-bold">
+            🔒 Toggle 2FA
+          </Link>
+        </li>
+        {/* <li className="mb-3">
+          <Link to="/verify-otp-2fa" className="text-white text-decoration-none fw-bold">
+            ✅ Verify OTP for 2FA
+          </Link>
+        </li> */}
+        <li className="mb-3">
+          <Link to="/forgot-supplier-password" className="text-white text-decoration-none fw-bold">
+            🔑 Forgot Password
+          </Link>
+        </li>
+        <li>
+          <button onClick={handleLogout} className="btn btn-link text-white text-decoration-none fw-bold p-0" style={{ textAlign: "left" }}>
+            🚪 Logout
+          </button>
+        </li>
+      </ul>
     </div>
   );
 }
 
-export default SideNavbar;
+
+export default SupplierSideNavbar;
+
+
+
+
