@@ -32,6 +32,11 @@ function PlaceOrder() {
   };
 
   const handleSelectProduct = (product) => {
+    if (quantity <= 0) {
+      alert("Quantity must be greater than 0.");
+      return;
+    }
+
     const existingProduct = selectedProducts.find(p => p.product === product._id);
     if (existingProduct) {
       setSelectedProducts(selectedProducts.map(p =>
@@ -51,6 +56,17 @@ function PlaceOrder() {
       console.error("No token found in localStorage");
       alert("You need to log in to place an order.");
       window.location.href = "/customer-login";
+      return;
+    }
+
+    if (selectedProducts.length === 0) {
+      alert("Please add at least one product to your cart before placing an order.");
+      return;
+    }
+
+    const invalidProduct = selectedProducts.find(product => product.quantity <= 0);
+    if (invalidProduct) {
+      alert(`Invalid quantity for product: ${invalidProduct.name}. Quantity must be greater than 0.`);
       return;
     }
 
@@ -138,7 +154,7 @@ function PlaceOrder() {
             {popupMessage}
           </div>
         )}
-        <h1 className="mb-4">Place Order</h1>
+        <h1 className="mb-4 fw-bold">Place Order</h1>
         <div className="mb-3 w-50">
           <input
             type="text"
@@ -198,7 +214,7 @@ function PlaceOrder() {
             &rarr;
           </button>
         </div>
-        <button className="btn btn-success w-50 mt-3" onClick={handlePlaceOrder}>
+        <button className="btn btn-success w-50 mt-3 fw-bold" onClick={handlePlaceOrder}>
           Place Order
         </button>
         {orderMessage && (

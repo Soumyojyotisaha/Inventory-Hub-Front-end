@@ -52,7 +52,7 @@ function CustomerDashboard() {
 
   const handleLogout = async () => {
     try {
-      const token = localStorage.getItem("customer-jwt");
+      const token = localStorage.getItem("customer-jwtToken");
 
       if (!token) {
         console.error("No token found, redirecting to login page.");
@@ -71,9 +71,9 @@ function CustomerDashboard() {
         }
       );
 
-      localStorage.removeItem("customer-jwt");
+      localStorage.removeItem("customer-jwtToken");
       alert("You have been logged out successfully!");
-      navigate("/");
+      navigate("/customer-login");
     } catch (error) {
       console.error("Logout failed:", error);
       alert("Logout failed. Please try again.");

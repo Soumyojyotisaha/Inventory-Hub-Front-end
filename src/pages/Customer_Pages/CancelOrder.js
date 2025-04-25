@@ -27,7 +27,9 @@ function CancelOrder() {
     })
     .then(response => {
       console.log("Orders fetched:", response.data); // Log the response data
-      setOrders(response.data.orders); // Update to correctly handle the API response
+      // Sort orders by date (most recent first)
+      const sortedOrders = response.data.orders.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+      setOrders(sortedOrders);
     })
     .catch(error => {
       console.error("Error fetching orders:", error);
@@ -113,6 +115,8 @@ function CancelOrder() {
               <div key={order._id} className="col-md-4 mb-4">
                 <div className="card p-3" style={{ backgroundColor: "#f8f9fa", boxShadow: "0px 4px 8px rgba(28, 139, 230, 0.7)", borderRadius: "10px" }}>
                   <h4 className="fw-bold">Order ID: {order._id}</h4>
+                  <p><strong>Date:</strong> {new Date(order.createdAt).toLocaleDateString()}</p>
+                  <p><strong>Time:</strong> {new Date(order.createdAt).toLocaleTimeString()}</p>
                   <p>Products:</p>
                   <ul>
                     {order.products.map((product) => (

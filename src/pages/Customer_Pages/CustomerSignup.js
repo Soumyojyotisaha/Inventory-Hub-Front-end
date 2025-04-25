@@ -2,11 +2,13 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
+
 function Signup() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
+
 
   const handleSignup = async (e) => {
     e.preventDefault();
@@ -20,6 +22,7 @@ function Signup() {
         }
       );
 
+
       if (response.status === 201) {
         alert("Signup Successful! Please login.");
       }
@@ -29,6 +32,12 @@ function Signup() {
       navigate("/customer-login"); // Redirect to login page after signup attempt
     }
   };
+
+
+  const handleRedirectToLandingPage = () => {
+    navigate("/");
+  };
+
 
   return (
     <div
@@ -46,7 +55,12 @@ function Signup() {
         }}
       >
         Welcome to{" "}
-        <span style={{ color: "rgb(0, 123, 255)" }}>Inventory Hub</span>
+        <span
+          style={{ color: "rgb(0, 123, 255)", cursor: "pointer" }}
+          onClick={handleRedirectToLandingPage}
+        >
+          Inventory Hub
+        </span>
       </h1>
       <div
         className="card p-4"
@@ -94,8 +108,7 @@ function Signup() {
               className="form-control"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              required
-            />
+              />
           </div>
           <button type="submit" className="btn btn-success w-100 mb-2">
             Signup
@@ -113,6 +126,7 @@ function Signup() {
         </form>
       </div>
 
+
       {/* Footer */}
       <div
         style={{
@@ -129,4 +143,10 @@ function Signup() {
   );
 }
 
+
 export default Signup;
+
+
+
+
+
