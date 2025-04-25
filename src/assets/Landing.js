@@ -31,16 +31,22 @@ function Landing() {
       </h1>
 
       <div
-        className="row shadow-lg rounded p-4 bg-white"
+        className="row shadow-lg rounded p-4 bg-white w-100"
         style={{
-          width: "fit-content",
-          maxWidth: "90%",
+          maxWidth: "900px",
           borderRadius: "15px",
         }}
       >
         {/* Left Side - Customer & Supplier Options */}
         <div className="col-md-6 d-flex flex-column align-items-center justify-content-center p-4">
-          <h2 className="mb-4 text-center">Choose Your Role</h2>
+          <h2
+            className="mb-4 text-center"
+            style={{
+              fontWeight: "bold", // Make the text bold
+            }}
+          >
+            Choose Your Role
+          </h2>
           <button
             className="btn btn-primary w-100 mb-3"
             onClick={() => navigate("/customer-signup")}
@@ -61,7 +67,7 @@ function Landing() {
             src="/store-bg.avif"
             alt="Store Illustration"
             className="img-fluid rounded"
-            style={{ maxHeight: "400px" }}
+            style={{ maxHeight: "400px", width: "100%", objectFit: "contain" }}
           />
         </div>
       </div>
