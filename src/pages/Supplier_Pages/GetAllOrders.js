@@ -23,17 +23,19 @@ function GetAllOrders() {
 
     axios.get("https://inventory-management-rest-api-mongo-db.onrender.com/api/orders", {
       headers: {
-        Authorization: `Bearer ${token}`
-      }
+        Authorization: `Bearer ${token}`,
+      },
     })
-    .then(response => {
-      setOrders(response.data.orders); // Update to correctly handle the API response
-      setLoading(false);
-    })
-    .catch(error => {
-      console.error("Error fetching orders:", error);
-      setLoading(false);
-    });
+      .then((response) => {
+        // Sort orders by date (most recent first)
+        const sortedOrders = response.data.orders.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+        setOrders(sortedOrders);
+        setLoading(false);
+      })
+      .catch((error) => {
+        console.error("Error fetching orders:", error);
+        setLoading(false);
+      });
   }, [navigate]);
 
   const indexOfLastOrder = currentPage * ordersPerPage;
@@ -67,7 +69,7 @@ function GetAllOrders() {
         </h1>
         <div className="row">
           {currentOrders.length > 0 ? (
-            currentOrders.map(order => (
+            currentOrders.map((order) => (
               <div key={order._id} className="col-md-4 mb-4">
                 <div className="card p-3" style={{ backgroundColor: "#f8f9fa", boxShadow: "0px 4px 8px rgba(28, 139, 230, 0.7)", borderRadius: "10px" }}>
                   <h4 className="fw-bold">Customer Name: {order.customer?.name || "Unknown"}</h4>
@@ -75,6 +77,8 @@ function GetAllOrders() {
                   <p>Product Name: {order.products[0]?.product?.name || "Unknown"}</p>
                   <p>Product Quantity: {order.products[0]?.quantity || "Unknown"}</p>
                   <p className="fw-bold text-primary">Total Bill: ${order.totalAmount}</p>
+                  <p><strong>Date:</strong> {new Date(order.createdAt).toLocaleDateString()}</p>
+                  <p><strong>Time:</strong> {new Date(order.createdAt).toLocaleTimeString()}</p>
                   <p style={{ color: "green" }}>Status: {order.status}</p>
                 </div>
               </div>

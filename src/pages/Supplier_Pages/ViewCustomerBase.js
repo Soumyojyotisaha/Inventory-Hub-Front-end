@@ -21,19 +21,24 @@ function ViewCustomerBase() {
       return;
     }
 
-    axios.get("https://inventory-management-rest-api-mongo-db.onrender.com/api/customers", {
-      headers: {
-        Authorization: `Bearer ${token}`
-      }
-    })
-    .then(response => {
-      setCustomers(response.data); // Update to correctly handle the API response
-      setLoading(false);
-    })
-    .catch(error => {
-      console.error("Error fetching customer details:", error);
-      setLoading(false);
-    });
+    axios
+      .get("https://inventory-management-rest-api-mongo-db.onrender.com/api/customers", {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((response) => {
+        // Sort customers by creation date (most recent first)
+        const sortedCustomers = response.data.sort(
+          (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
+        );
+        setCustomers(sortedCustomers);
+        setLoading(false);
+      })
+      .catch((error) => {
+        console.error("Error fetching customer details:", error);
+        setLoading(false);
+      });
   }, [navigate]);
 
   const indexOfLastCustomer = currentPage * customersPerPage;
@@ -67,7 +72,7 @@ function ViewCustomerBase() {
         </h1>
         <div className="row">
           {currentCustomers.length > 0 ? (
-            currentCustomers.map(customer => (
+            currentCustomers.map((customer) => (
               <div key={customer._id} className="col-md-4 mb-4">
                 <div className="card p-3" style={{ backgroundColor: "#f8f9fa", boxShadow: "0px 4px 8px rgba(0, 0, 0, 0.1)", borderRadius: "10px" }}>
                   <h4 className="fw-bold">Name: {customer.name}</h4>
@@ -75,6 +80,7 @@ function ViewCustomerBase() {
                   <p style={{ color: customer.twoFactorEnabled ? "red" : "green" }}>
                     Two-Factor Enabled: {customer.twoFactorEnabled ? "Yes" : "No"}
                   </p>
+                  <p><strong>Created At:</strong> {new Date(customer.createdAt).toLocaleDateString()} {new Date(customer.createdAt).toLocaleTimeString()}</p>
                 </div>
               </div>
             ))
