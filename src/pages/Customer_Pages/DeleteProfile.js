@@ -93,36 +93,33 @@ function DeleteProfile() {
   };
 
   return (
-    <div className="d-flex flex-column flex-lg-row">
+    <div className="d-flex">
       <Background />
       <SideNavbar handleLogout={handleLogout} />
 
       {/* Main Content */}
       <div
-        className="container mt-4 d-flex justify-content-center align-items-center"
+        className="d-flex justify-content-center mt-4"
         style={{
           marginLeft: "270px",
-          width: "100%",
-          maxWidth: "90%",
+          width: "calc(100% - 270px)", // Adjust width to account for the sidebar
           backdropFilter: "blur(5px)",
         }}
       >
-        <div className="w-100" style={{ maxWidth: "600px" }}>
-          <h1
-            className="mb-4 fw-bold text-center"
-            style={{ fontSize: "2rem", color: "rgb(51, 51, 51)" }}
-          >
+        <div
+          className="card p-3"
+          style={{
+            backgroundColor: "#f8f9fa",
+            boxShadow: "0px 4px 8px rgba(28, 139, 230, 0.7)",
+            borderRadius: "10px",
+            width: "60%", // Set a fixed width for the card
+          }}
+        >
+          <h1 className="mb-4 fw-bold text-center" style={{ fontSize: "2rem", color: "rgb(51, 51, 51)" }}>
             User Profile
           </h1>
           {user ? (
-            <div
-              className="card p-3 mx-auto"
-              style={{
-                backgroundColor: "#f8f9fa",
-                boxShadow: "0px 4px 8px rgba(28, 139, 230, 0.7)",
-                borderRadius: "10px",
-              }}
-            >
+            <>
               <h4 className="fw-bold">User Details</h4>
               <p>
                 <strong>Name:</strong> {user.name}
@@ -130,30 +127,21 @@ function DeleteProfile() {
               <p>
                 <strong>Email:</strong> {user.email}
               </p>
-              <button
-                className="btn btn-danger btn-sm"
-                onClick={() => setConfirmDelete(true)}
-              >
+              <button className="btn btn-danger btn-sm" onClick={() => setConfirmDelete(true)}>
                 Delete Profile
               </button>
               {confirmDelete && (
                 <div className="confirm-delete mt-3">
                   <p>Are you sure you want to delete the profile?</p>
-                  <button
-                    className="btn btn-danger btn-sm"
-                    onClick={handleDeleteProfile}
-                  >
+                  <button className="btn btn-danger btn-sm" onClick={handleDeleteProfile}>
                     Yes
                   </button>
-                  <button
-                    className="btn btn-secondary btn-sm"
-                    onClick={() => setConfirmDelete(false)}
-                  >
+                  <button className="btn btn-secondary btn-sm" onClick={() => setConfirmDelete(false)}>
                     No
                   </button>
                 </div>
               )}
-            </div>
+            </>
           ) : (
             <p>Loading user details...</p>
           )}
